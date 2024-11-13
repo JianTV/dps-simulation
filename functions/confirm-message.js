@@ -27,7 +27,7 @@ exports.handler = (event, context, callback) => {
     if (account) {
       // Find the message and remove it
       const index = account.messages.findIndex(
-        msg => msg.id === messageId);
+        msg => msg.id === String(messageId));
       if (index !== -1) {
         account.messages.splice(index, 1);
         response.body = JSON.stringify(
