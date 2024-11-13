@@ -2,31 +2,25 @@ const config = require('../shared/config');
 
 exports.handler = (event, context, callback) => {
 
+  response = {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json', // Ensure the response is JSON
+    }};
+
   try {
     const data = JSON.parse(event.body);
     const {accountId, pin} = data;
     if (!accountId || !pin) {
-      return {
-        statusCode: 400, // Bad Request
-        headers: {
-          'Content-Type': 'application/json', // Ensure the response is JSON
-        },
-        body: JSON.stringify({ message: 'missing accountId or pin'}),
-      };
+      response.statusCode = 400;
+      response.body = JSON.stringify({ message: 'missing accountId or pin'});
+      return callback(null, response);
     }
-    return {
-      headers: {
-        'Content-Type': 'application/json', // Ensure the response is JSON
-      },
-      body: JSON.stringify({ message: 'okay'}),
-    };
+    response.body = JSON.stringify({ message: 'okay'});
+    return callback(null, response);
   } catch (error) {
-    return {
-      statusCode: 400, // Bad Request
-      headers: {
-        'Content-Type': 'application/json', // Ensure the response is JSON
-      },
-      body: JSON.stringify({ message: 'Invalid JSON', error: error.message }),
-    };
+    response.statusCode = 400;
+    response.body = JSON.stringify({ message: 'Invalid JSON', error: error.message });
+    return callback(null, response);
   }
 }
