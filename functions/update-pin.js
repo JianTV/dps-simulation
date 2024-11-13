@@ -8,24 +8,28 @@ exports.handler = (event, context, callback) => {
       'Content-Type': 'application/json', // Ensure the response is JSON
     }
   };
-
   try {
-    const accountPin = JSON.parse(event.body);
-    const {accountId, pin} = accountPin;
+    const accountPins = JSON.parse(event.body);
+    const {accountId, oldPin, newPin} = accountPins;
 
-    if (!accountId || !pin) {
+    if (!accountId || !oldPin || !newPin) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId or pin'});
+        { message: 'missing accountId or pin or new pin'});
       return callback(null, response);
     }
 
     // Find the account in the array
-    const account = config.accounts.find(
-      acc => acc.accountId === accountId && acc.pin === pin);
+    const account = accounts.find(
+      acc => acc.accountId === accountId && acc.pin === oldPin);
 
     if (account) {
-      response.body = JSON.stringify({ success: true });
+      account.pin = newPin
+      response.body = JSON.stringify(
+        { success: true,
+          oldPin: oldPin,
+          account: account
+         });
     } else {
       response.statusCode = 401;
       response.body = JSON.stringify(

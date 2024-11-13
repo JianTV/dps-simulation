@@ -1,8 +1,8 @@
-const config = [
+const accounts = [
   {
     accountId: "1111a",
     pin: "11111",
-     messages : [
+    messages : [
       {
         id: "12",
         message: "Message for account 1111a, id 12."
