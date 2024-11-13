@@ -29,7 +29,10 @@ exports.handler = (event, context, callback) => {
     } else {
       response.statusCode = 401;
       response.body = JSON.stringify(
-        { message: 'Account authenticaiton failed' });
+        { message: 'Account authenticaiton failed',
+          accountId: accountId,
+          pin: pin
+         });
     }
 
     return callback(null, response);
