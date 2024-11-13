@@ -20,7 +20,7 @@ exports.handler = (event, context, callback) => {
       return callback(null, response);
     }
 
-    // Find the account in the array
+    // Find the account in test accounts in the config file.
     const account = config.accounts.find(
       acc => acc.accountId === accountId && acc.pin === pin);
 

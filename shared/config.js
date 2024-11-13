@@ -29,3 +29,5 @@ const accounts = [
       messages: []
   }
 ];
+
+module.exports = accounts;
