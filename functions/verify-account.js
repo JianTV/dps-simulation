@@ -4,7 +4,7 @@ exports.handler = (event, context, callback) => {
 
   try {
     const data = JSON.parse(event.body);
-    (accountId, pin) = data;
+    const {accountId, pin} = data;
     if (!accountId || !pin) {
       return {
         statusCode: 400, // Bad Request
