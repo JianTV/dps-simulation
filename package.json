@@ -1,0 +1,19 @@
+{
+  "name": "dps-simulation",
+  "version": "1.0.0",
+  "description": "Backend REST APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JianTV/dps-simulation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JianTV/dps-simulation/issues"
+  },
+  "homepage": "https://github.com/JianTV/dps-simulation#readme"
+}
