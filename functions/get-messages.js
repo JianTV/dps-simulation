@@ -16,12 +16,12 @@ exports.handler = (event, context, callback) => {
     if (!accountId) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId'});
+        { message: 'missing accountId.'});
       return callback(null, response);
     }
 
     // Find the account in test accounts in the config file.
-    const account = config.accounts.find(
+    const account = config.find(
       acc => acc.accountId === accountId);
 
     if (account) {

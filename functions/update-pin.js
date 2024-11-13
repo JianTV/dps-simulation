@@ -20,8 +20,8 @@ exports.handler = (event, context, callback) => {
     }
 
     // Find the account in the array
-    const account = accounts.find(
-      acc => acc.accountId === accountId && acc.pin === oldPin);
+    const account = config.find(
+      acc => acc.accountId === accountId && acc.pin === String(oldPin));
 
     if (account) {
       account.pin = newPin

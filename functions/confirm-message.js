@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
     }
 
     // Find the account in test accounts in the config file.
-    const account = config.accounts.find(
+    const account = config.find(
       acc => acc.accountId === accountId);
 
     if (account) {
