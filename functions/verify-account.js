@@ -1,4 +1,4 @@
-const config = require('../../shared/config');
+const config = require('../shared/config');
 
 exports.handler = (event, context, callback) => {
 
