@@ -8,7 +8,7 @@ exports.handler = (event, context, callback) => {
       'Content-Type': 'application/json', // Ensure the response is JSON
     },
     body: JSON.stringify(
-      {testdata: config.accounts}
+      {testdata: config}
     )
   };
 
