@@ -62,7 +62,9 @@ exports.handler = (event, context, callback) => {
     if (!accountId) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId.'});
+        { message: 'missing accountId.',
+          input:  data
+        });
       return callback(null, response);
     }
     normalizedAccountId = replaceDigitWithLetter(accountId);
