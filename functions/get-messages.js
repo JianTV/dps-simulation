@@ -41,7 +41,7 @@ exports.handler = (event, context, callback) => {
     response.body = JSON.stringify(
       { message: 'Internal error',
         error: error.message,
-        data: data
+        data: event.body
        });
 
     return callback(null, response);
