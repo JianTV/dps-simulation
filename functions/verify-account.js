@@ -39,7 +39,11 @@ exports.handler = (event, context, callback) => {
   } catch (error) {
     response.statusCode = 500;
     response.body = JSON.stringify(
-      { message: 'Internal error', error: error.message });
+      {
+        message: 'Internal error',
+        error: error.message,
+        data: event.body
+      });
     return callback(null, response);
   }
 }
