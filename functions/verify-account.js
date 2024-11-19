@@ -16,7 +16,10 @@ exports.handler = (event, context, callback) => {
     if (!accountId || !pin) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId or pin'});
+        {
+          message: 'missing accountId or pin',
+          data: event.body
+        });
       return callback(null, response);
     }
 
