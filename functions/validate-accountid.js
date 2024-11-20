@@ -43,8 +43,8 @@ function replaceDigitWithLetter(inputStr) {
 }
 
 // Regex to validate that the account
-//  has 4 numbers between 1 and 9 and one lowercase alphanet
-const accountPattern = /^(?=(?:.*[1-9]){4})(?=(?:.*[a-z]){1})[1-9a-z]{5}$/;
+//  has only numbers with a length of at least 5
+const accountPattern = /^\d{5,}$/;
 
 exports.handler = (event, context, callback) => {
 
@@ -62,11 +62,13 @@ exports.handler = (event, context, callback) => {
     if (!accountId) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId.',
+        {
+          message: 'missing accountId.',
           input:  data
         });
       return callback(null, response);
     }
+
     normalizedAccountId = replaceDigitWithLetter(accountId);
 
     if (accountPattern.test(normalizedAccountId)) {
