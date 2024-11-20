@@ -16,7 +16,10 @@ exports.handler = (event, context, callback) => {
     if (!accountId) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId.'});
+        {
+          error: 'missing accountId.',
+          data: event.body
+        });
       return callback(null, response);
     }
 
@@ -26,23 +29,25 @@ exports.handler = (event, context, callback) => {
 
     if (account) {
       response.body = JSON.stringify(
-        { success: true,
+        {
           messages: account.messages
         });
     } else {
       response.statusCode = 401;
       response.body = JSON.stringify(
-        { message: 'Test account does not exist.' });
+        {
+          error: 'Test account does not exist.'
+        });
     }
 
     return callback(null, response);
   } catch (error) {
     response.statusCode = 500;
     response.body = JSON.stringify(
-      { message: 'Internal error',
+      {
         error: error.message,
         data: event.body
-       });
+      });
 
     return callback(null, response);
   }

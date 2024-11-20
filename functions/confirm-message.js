@@ -16,7 +16,10 @@ exports.handler = (event, context, callback) => {
     if (!accountId) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId'});
+        {
+          message: 'missing accountId',
+          data: event.body
+        });
       return callback(null, response);
     }
 
@@ -28,6 +31,10 @@ exports.handler = (event, context, callback) => {
       // If messageId is empty, remove all messages
       if (!messageId) {
         account.messages = [];
+        response.body = JSON.stringify(
+          {
+            messages: account.messages
+          });
       } else {
         // Find the message and remove it
         const index = account.messages.findIndex(
@@ -42,7 +49,8 @@ exports.handler = (event, context, callback) => {
           response.statusCode = 401;
           response.body = JSON.stringify(
             {
-              messages: 'Message does not exist for this account'
+              error: "message id does not exist",
+              data: event.body
             });
         }
       }
@@ -50,7 +58,7 @@ exports.handler = (event, context, callback) => {
       response.statusCode = 401;
       response.body = JSON.stringify(
         {
-          message: 'Test account does not exist'
+          error: 'Test account does not exist'
         });
     }
 

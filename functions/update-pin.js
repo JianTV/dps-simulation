@@ -15,7 +15,10 @@ exports.handler = (event, context, callback) => {
     if (!accountId || !oldPin || !newPin) {
       response.statusCode = 400;
       response.body = JSON.stringify(
-        { message: 'missing accountId or pin or new pin'});
+        {
+          message: 'missing accountId or pin or new pin',
+          data: event.body
+        });
       return callback(null, response);
     }
 
@@ -26,21 +29,26 @@ exports.handler = (event, context, callback) => {
     if (account) {
       account.pin = newPin
       response.body = JSON.stringify(
-        { success: true,
+        {
           oldPin: oldPin,
           account: account
          });
     } else {
       response.statusCode = 401;
       response.body = JSON.stringify(
-        { message: 'Account authenticaiton failed' });
+        {
+          error: 'Account authenticaiton failed',
+          data: event.body
+        });
     }
 
     return callback(null, response);
   } catch (error) {
     response.statusCode = 500;
     response.body = JSON.stringify(
-      { message: 'Internal error', error: error.message });
+      {
+        error: error.message
+      });
     return callback(null, response);
   }
 }

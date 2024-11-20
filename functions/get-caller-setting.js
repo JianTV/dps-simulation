@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
       response.statusCode = 400;
       response.body = JSON.stringify(
         {
-          message: 'missing phone_number.',
+          error: 'missing phone_number.',
           data: event.body
         });
       return callback(null, response);
@@ -35,7 +35,6 @@ exports.handler = (event, context, callback) => {
 
     response.body = JSON.stringify(
       {
-          success: true,
           account: account
       });
 
@@ -44,7 +43,6 @@ exports.handler = (event, context, callback) => {
     response.statusCode = 500;
     response.body = JSON.stringify(
       {
-        message: 'Internal error',
         error: error.message,
         data: event.body
       });
