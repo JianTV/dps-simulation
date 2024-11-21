@@ -5,7 +5,7 @@ const accounts = [
     messages : [
       {
         id: "12",
-        message: "Message for account 1111a, id 12."
+        message: "First message for account for 1,1,1,1,1"
       }
    ]
   },
@@ -15,11 +15,11 @@ const accounts = [
     messages : [
       {
         id: "22",
-        message: "Message for account 2222b, id 22."
+        message: "First Message for account 2,2,2,2,2."
       },
       {
         id: "23",
-        message: "Message for account 2222b, id 23."
+        message: "Second Message for account 2,2,2,2,2."
       }
    ]
   },
