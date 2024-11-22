@@ -25,7 +25,7 @@ exports.handler = (event, context, callback) => {
 
     // Find the account in test accounts in the config file.
     const account = config.find(
-      acc => acc.accountId === accountId && acc.pin === String(pin));
+      acc => acc.accountId === String(accountId) && acc.pin === String(pin));
 
     if (account) {
       response.body = JSON.stringify({ success: true });
