@@ -36,7 +36,8 @@ exports.handler = (event, context, callback) => {
       response.statusCode = 401;
       response.body = JSON.stringify(
         {
-          error: 'Test account does not exist.'
+          error: 'Test account does not exist.',
+          data: event.body
         });
     }
 
