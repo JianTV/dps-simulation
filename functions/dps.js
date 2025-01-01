@@ -25,6 +25,7 @@ const endPointsDict = {
           account: account
         });
     }
+    return response;
   },
   confirmMessage: function(data, response) {
     return response;
