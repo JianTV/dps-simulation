@@ -27,16 +27,150 @@ const endPointsDict = {
     }
     return response;
   },
-  confirmMessage: function(data, response) {
+  getMessages: function(data, response) {
+    const {accountId} = data;
+
+    if (!accountId) {
+      response.statusCode = 400;
+      response.body = JSON.stringify(
+        {
+          error: 'missing accountId.',
+          data: data
+        });
+    } else {
+      // Find the account in test accounts in the config file.
+      const account = config.find(
+        acc => acc.accountId === String(accountId));
+
+      if (account) {
+        response.body = JSON.stringify(
+          {
+            messages: account.messages
+          });
+      } else {
+        response.statusCode = 401;
+        response.body = JSON.stringify(
+          {
+            error: 'Test account does not exist.',
+            data: data
+          });
+      }
+    }
     return response;
   },
-  getMessages: function(data, response) {
+  confirmMessage: function(data, response) {
+    const {accountId, messageId} = data;
+
+    if (!accountId) {
+      response.statusCode = 400;
+      response.body = JSON.stringify(
+        {
+          message: 'missing accountId',
+          data: data
+        });
+    } else {
+
+      // Find the account in test accounts in the config file.
+      const account = config.find(
+        acc => acc.accountId === accountId);
+
+      if (account) {
+        // If messageId is empty, remove all messages
+        if (!messageId) {
+          account.messages = [];
+          response.body = JSON.stringify(
+            {
+              messages: account.messages
+            });
+        } else {
+          // Find the message and remove it
+          const index = account.messages.findIndex(
+            msg => msg.id === String(messageId));
+          if (index !== -1) {
+            account.messages.splice(index, 1);
+            response.body = JSON.stringify(
+              {
+                messages: account.messages
+              });
+          } else {
+            response.statusCode = 401;
+            response.body = JSON.stringify(
+              {
+                error: "message id does not exist",
+                data: data
+              });
+          }
+        }
+      } else {
+        response.statusCode = 401;
+        response.body = JSON.stringify(
+          {
+            error: 'Test account does not exist'
+          });
+      }
+    }
     return response;
   },
   verifyAccount: function(data, response) {
+    const {accountId, pin} = data;
+
+    if (!accountId || !pin) {
+      response.statusCode = 400;
+      response.body = JSON.stringify(
+        {
+          message: 'missing accountId or pin',
+          data: datas
+        });
+    } else {
+      // Find the account in test accounts in the config file.
+      const account = config.find(
+        acc => acc.accountId === String(accountId) && acc.pin === String(pin));
+
+      if (account) {
+        response.body = JSON.stringify({ success: true });
+      } else {
+        response.statusCode = 401;
+        response.body = JSON.stringify(
+          { message: 'Account authenticaiton failed',
+            accountId: accountId,
+            pin: pin
+          });
+      }
+    }
     return response;
   },
   updatePin: function(data, response) {
+    const {accountId, oldPin, newPin} = data;
+
+    if (!accountId || !oldPin || !newPin) {
+      response.statusCode = 400;
+      response.body = JSON.stringify(
+        {
+          message: 'missing accountId or pin or new pin',
+          data: data
+        });
+    } else {
+
+      // Find the account in the array
+      const account = config.find(
+        acc => acc.accountId === accountId && acc.pin === String(oldPin));
+
+      if (account) {
+        account.pin = newPin
+        response.body = JSON.stringify(
+          {
+            oldPin: oldPin,
+            account: account
+          });
+      } else {
+        response.statusCode = 401;
+        response.body = JSON.stringify(
+          {
+            error: 'Account authenticaiton failed',
+            data: data
+          });
+      }
+    }
     return response;
   },
   updateOutboundStatus: function(data, response) {
