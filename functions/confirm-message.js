@@ -27,6 +27,12 @@ exports.handler = (event, context, callback) => {
     const account = config.find(
       acc => acc.accountId === accountId);
 
+    // Just log the request
+    response.body = JSON.stringify(
+        {
+          messageId: messageId
+        });
+    /*
     if (account) {
       // If messageId is empty, remove all messages
       if (!messageId) {
@@ -61,7 +67,7 @@ exports.handler = (event, context, callback) => {
           error: 'Test account does not exist'
         });
     }
-
+    */
     return callback(null, response);
   } catch (error) {
     response.statusCode = 500;
