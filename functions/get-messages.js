@@ -30,7 +30,7 @@ exports.handler = (event, context, callback) => {
     if (account) {
       response.body = JSON.stringify(
         {
-          messages: account.messages
+          message: account.message
         });
     } else {
       response.statusCode = 401;
