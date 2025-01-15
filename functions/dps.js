@@ -45,7 +45,7 @@ const endPointsDict = {
       if (account) {
         response.body = JSON.stringify(
           {
-            messages: account.messages
+            message: account.message
           });
       } else {
         response.statusCode = 401;
@@ -73,41 +73,6 @@ const endPointsDict = {
       // Find the account in test accounts in the config file.
       const account = config.find(
         acc => acc.accountId === accountId);
-
-      if (account) {
-        // If messageId is empty, remove all messages
-        if (!messageId) {
-          account.messages = [];
-          response.body = JSON.stringify(
-            {
-              messages: account.messages
-            });
-        } else {
-          // Find the message and remove it
-          const index = account.messages.findIndex(
-            msg => msg.id === String(messageId));
-          if (index !== -1) {
-            account.messages.splice(index, 1);
-            response.body = JSON.stringify(
-              {
-                messages: account.messages
-              });
-          } else {
-            response.statusCode = 401;
-            response.body = JSON.stringify(
-              {
-                error: "message id does not exist",
-                data: data
-              });
-          }
-        }
-      } else {
-        response.statusCode = 401;
-        response.body = JSON.stringify(
-          {
-            error: 'Test account does not exist'
-          });
-      }
     }
     return response;
   },
@@ -174,6 +139,7 @@ const endPointsDict = {
     return response;
   },
   updateOutboundStatus: function(data, response) {
+    // TODO: discuss with Jay and finalize the signature first.
     return response;
   }
 };
